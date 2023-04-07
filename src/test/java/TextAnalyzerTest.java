@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TextAnalyzerTest {
 
-    final String TEXT = "Ut enim ad minim veniam.";
-    final Map<Character, Integer> EXPECTED = new HashMap<>() {
+    private final String TEXT = "Ut enim ad minim veniam.";
+    private final Map<Character, Integer> EXPECTED = new HashMap<>() {
         {   put('a', 2);
             put('t', 1);
             put('d', 1);
@@ -20,7 +20,33 @@ class TextAnalyzerTest {
             put('n', 3);
         }};
 
-    final String EMPTY_TEXT = "";
+    private final String EMPTY_TEXT = "";
+
+    private static long suiteStartTime;
+    private long testStartTime;
+
+    @BeforeAll
+    static void initSuite() {
+        suiteStartTime = System.nanoTime();
+        System.out.println("Testing started at "+ suiteStartTime);
+    }
+
+    @AfterAll
+    static void completeSuite() {
+        System.out.println("Testing completed at " +(System.nanoTime() - suiteStartTime));
+    }
+
+    @BeforeEach
+    void startTest() {
+        System.out.println("Starting the test..");
+        testStartTime  = System.nanoTime();
+    }
+
+    @AfterEach
+    void finalizeTest() {
+        System.out.println("The test completed at " + (System.nanoTime() -testStartTime));
+    }
+
 
     @Test
     void getLettersAppearingMap_test() {
